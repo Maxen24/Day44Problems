@@ -72,3 +72,51 @@ window.addEventListener('DOMContentLoaded', (event)=> {
 
     });
 });
+
+//UC-3 Ability to create Employee Payroll Object On Save.
+//- Validation of Name and Date and if failed then set the UI accordingly.
+
+const Save = () => {
+    try {
+      let employeePayrollData = createEmployeePayroll();
+      createAndUpdateStorage(employeePayrollData);
+    } catch (e) {
+      return;
+    }
+  };
+const createEmployeePayroll=()=> {
+    let employeePayrollData = new EmployeePayrollData();
+    try{
+        employeePayrollData.name = getInputValueById("#name")
+
+    } catch (e) {
+        setTextValue(".text-error", e);
+        throw e;
+    }
+    employeePayrollData.profilePic = getSelectedValue("[name=profile]").pop();
+    employeePayrollData.gender = getSelectedValues ("[name=gender]").pop();
+    employeePayrollData.department = getSelectedValueById("[name=department]");
+    employeePayrollData.salary = getInputValueById("#salary");
+    employeePayrollData.note = getInputValueById("#notes");
+    let date = getInputValueById("#day")+ " "+getInputValueById("#month")+ " "+getInputValueById("#year");
+    employeePayrollData.date = Date.parse(date);
+    alert(employeePayrollData.toString());
+    return employeePayrollData;
+}
+const getSelectedValues=(propertyValue)=>{
+    let allItems = document.querySelectorAll(propertyValue);
+    let setItems=[];
+    allItems.forEach(item => {
+        if(item.checked) setItems.push(item.value);
+    });
+    return setItems;
+}
+
+const getInputValueById = (id) => {
+    let value = document.querySelector(id).value;
+    return value;
+}
+const getInputElementValue = (id) => {
+    let value = document.getElementById(id).value;
+    return value;
+}
