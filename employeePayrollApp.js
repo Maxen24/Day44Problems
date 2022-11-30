@@ -120,3 +120,19 @@ const getInputElementValue = (id) => {
     let value = document.getElementById(id).value;
     return value;
 }
+
+//UC-4 Ability to save the Employee Payroll Object to Local Storage. - Understand the difference between Local
+//Storage, Session Storage and older feature of storing in cookies. Here are good references
+//- HTML5 Storage - Quick Guide Local Storage supported Methods
+
+function createAndUpdateStorage(employeePayrollData) {
+    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    if (employeePayrollList!= undefined) {
+        employeePayrollList.push(employeePayrollData);
+
+    }else {
+        employeePayrollList = [employeePayrollData]
+    }
+    alert(employeePayrollList.toString());
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
+}
